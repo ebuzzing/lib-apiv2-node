@@ -28,6 +28,10 @@ jsonApi.define('ad', {
     creatives: {
         jsonApi: 'hasMany',
         type: 'creative'
+    },
+    insertionOrder: {
+        jsonApi: 'hasOne',
+        type: 'insertionOrder'
     }
 }, {
     type: 'ad'
@@ -76,7 +80,7 @@ jsonApi.define('insertionOrderLine', {
         type: 'product'
     }
 }, {
-    type: 'insertionOrder'
+    type: 'insertionOrderLine'
 });
 
 
