@@ -6,12 +6,14 @@ var process = require('process');
 // Bootstrap
 const jsonApi = new JsonApi({apiUrl:'http://api-proxy.qa5.sandbox.teads.net/v2'})
 
-function getAuthToken() {
-  return 'cb3ca40dcfa54cbca060e6027eb7b3ed';
-}
+let AUTH = {
+  entityId: 6874,
+    token: '5a84899a4605433882bab00fd5086524',
+    profileId: 12152 
+  };
 
 function authorize(jsonApi) {
-  jsonApi.headers['Authorization'] = 'Bearer ' + getAuthToken();
+  jsonApi.headers['Authorization'] = 'Bearer ' + AUTH.token;
 }
 
 /* DEFINE MODELS */
@@ -109,8 +111,20 @@ export function updateCreative(creativeId: number, adId: Number, studioCreative:
   });
 }
 
-export function newAd()
+export function newAd(ad: any): Promise<any> {
+  return jsonApi.create('ad', {
+    name: ad.name,
+    status: 2,
+    adType: "media",
+    entity: {id: AUTH.entityId},
+    sellerProfile: {id: 12156},
+    buyer: {id: AUTH.entityId},
+    advertiser: {id: 3900},
+    operatorProfile: {id: AUTH.profileId}
+  }).then((r) => console.log(r));
+}
 
+newAd({name: "Andrei Ad"}).then((id) => console.log(id));
 
 
 // newCreative(jsonApi, 38741, {name: "Andrei Test", "id": 5648887335354368})
