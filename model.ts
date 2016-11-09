@@ -128,4 +128,4 @@ jsonApi.define('insertion', {
     type:'insertion'
 });
 
-export {jsonApi as model};
+module.exports = jsonApi;

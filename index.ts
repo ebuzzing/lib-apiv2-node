@@ -1,20 +1,18 @@
 // Import
 var process = require('process');
-
-import {model} from './model';
-let jsonApi = model;
+var jsonApi = require('./model');
 
 let AUTH = {
-  entityId: 6874,
-    token: '5a84899a4605433882bab00fd5086524',
+    entityId: 6874,
+    token: 'c5ca292765a540b197b44be85ec90207',
     profileId: 12152 
   };
 
-function authorize(jsonApi) {
+function authorize() {
   jsonApi.headers['Authorization'] = 'Bearer ' + AUTH.token;
 }
 
-authorize(jsonApi);
+authorize();
 
 export function newCreative(adId: Number, studioCreative: {name: String, id: Number}): Promise<any> {
   return jsonApi.create('creative', {
@@ -30,10 +28,13 @@ export function updateCreative(creativeId: number, adId: Number, studioCreative:
     id: creativeId,
     name: studioCreative.name,
     status: 2,
-    json: `{\"Linear\":{\"Extensions\":{\"type\":\"\",\"wrap\":\"https://tag.brainient.com/vast/${studioCreative.id}\",\"script\":[],\"iframe\":[],\"code_html\":[]},\"VideoClicks\":{\"ClickTracking\":[{\"status\":1,\"data\":\"[PROTOCOL]://t.teads.tv/track?action=click&vid=[VID]&cid=[CID]&gid=[GID]&pid=[PID]&[RND]\"}],\"CustomClick\":[]},\"Duration\":0}}`,
     ad: { id: adId }
   });
 }
+
+export function getCreativesByStudioId(creativeId: number) {
+  return jsonApi.findAll('creative', {filter: encodeURI(`{\"json\":{\"$regex\":\"${creativeId}\"}}`)});
+} 
 
 export function newAd(ad: any): Promise<any> {
   return jsonApi.create('ad', {
@@ -47,21 +48,3 @@ export function newAd(ad: any): Promise<any> {
     operatorProfile: {id: AUTH.profileId}
   });
 }
-
-
-// newAd({name: "Andrei Ad"}).then((ad) => ad.id);
-
-// jsonApi.find('ad', 38741, {include: 'creatives'})
-// .then((ad) => console.log(ad));
-
-
-// newCreative(jsonApi, 38741, {name: "Andrei Test", "id": 5648887335354368})
-// .then(r => console.log(r));
-
-
-// updateCreative(98076, 38741, {name: "Andrei Test (update)", "id": 5648887335354368})
-// .then(r => console.log(r));
-
-// Define Model 
-// To find many... 
-// jsonApi.findAll('ad').then((r) => console.log(r));
