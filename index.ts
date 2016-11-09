@@ -48,3 +48,9 @@ export function newAd(ad: any): Promise<any> {
     operatorProfile: {id: AUTH.profileId}
   });
 }
+
+export function findAllMyAds(): Promise<any> {
+  return jsonApi.findAll('ad', {operatorProfile: {id: AUTH.profileId}}).then(r => console.log(r));
+}
+
+findAllMyAds();
