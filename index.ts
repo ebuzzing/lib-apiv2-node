@@ -112,6 +112,10 @@ export function updateCreative(creativeId: number, adId: Number, studioCreative:
   });
 }
 
+function createOrUpdateCreative(creativeId: number, adId: Number, studioCreative: {name: String, id: Number}): Promise<any> {
+  jsonApi.find
+}
+
 export function newAd(ad: any): Promise<any> {
   return jsonApi.create('ad', {
     name: ad.name,
@@ -124,6 +128,8 @@ export function newAd(ad: any): Promise<any> {
     operatorProfile: {id: AUTH.profileId}
   });
 }
+
+
 
 
 // newAd({name: "Andrei Ad"}).then((ad) => ad.id);
