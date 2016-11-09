@@ -32,6 +32,55 @@ jsonApi.define('ad', {
 }, {
     type: 'ad'
 });
+
+jsonApi.define('insertionOrder', {
+    number: '',
+    budget: '',
+    startDate: '',
+    endDate: '',
+    currency: '',
+    billableVolume: '',
+    freeBillableVolume:0,
+    timezone:'',
+    ad: {
+        jsonApi: 'hasOne',
+        type: 'ad'
+    },
+    category: {
+        jsonApi: 'hasOne',
+        type: 'category'
+    },
+    insertionOrderLines: {
+        jsonApi: 'hasMany',
+        type: 'insertionOrderLine'
+    }
+}, {
+    type: 'insertionOrder'
+});
+
+jsonApi.define('insertionOrderLine', {
+    budget: '',
+    name: '',
+    startDate: '',
+    endDate: '',
+    currency: '',
+    billableVolume: '',
+    freeBillableVolume:0,
+    timezone:'',
+    insertionOrder: {
+        jsonApi: 'hasOne',
+        type: 'insertionOrder'
+    },
+    product: {
+        jsonApi: 'hasOne',
+        type: 'product'
+    }
+}, {
+    type: 'insertionOrder'
+});
+
+
+
 jsonApi.define('creative', {
     name: '',
     status: '',
