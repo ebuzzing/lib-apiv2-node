@@ -1,6 +1,5 @@
 // Import 
 var JsonApi = require('devour-client');
-var axios = require('axios');
 var process = require('process');
 
 // Bootstrap
@@ -18,7 +17,6 @@ function authorize(jsonApi) {
 
 /* DEFINE MODELS */
 jsonApi.define('ad', {
-  id: '',
   name: '',
   status: '',
   adType: '',
@@ -41,12 +39,15 @@ jsonApi.define('ad', {
   operatorProfile: {
     jsonApi: 'hasOne',
     type: 'profile'
+  },
+  creatives: {
+    jsonApi: 'hasMany',
+    type: 'creative'
   }
 }, {
   type: 'ad'
 });
 jsonApi.define('creative', {
-  id:'',
   name: '',
   status: '',
   json: '',
@@ -121,10 +122,14 @@ export function newAd(ad: any): Promise<any> {
     buyer: {id: AUTH.entityId},
     advertiser: {id: 3900},
     operatorProfile: {id: AUTH.profileId}
-  }).then((r) => console.log(r));
+  });
 }
 
-newAd({name: "Andrei Ad"}).then((id) => console.log(id));
+
+// newAd({name: "Andrei Ad"}).then((ad) => ad.id);
+
+// jsonApi.find('ad', 38741, {include: 'creatives'})
+// .then((ad) => console.log(ad));
 
 
 // newCreative(jsonApi, 38741, {name: "Andrei Test", "id": 5648887335354368})
