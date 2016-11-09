@@ -15,7 +15,36 @@ function authorize(jsonApi) {
 }
 
 /* DEFINE MODELS */
+jsonApi.define('ad', {
+  id: '',
+  name: '',
+  status: '',
+  adType: '',
+  entity: {
+    jsonApi: 'hasOne',
+    type: 'entity'
+  },
+  sellerProfile: {
+    jsonApi: 'hasOne',
+    type: 'profile'
+  },
+  buyer: {
+    jsonApi: 'hasOne',
+    type: 'entity'
+  },
+  advertiser: {
+    jsonApi: 'hasOne',
+    type: 'advertiser'
+  },
+  operatorProfile: {
+    jsonApi: 'hasOne',
+    type: 'profile'
+  }
+}, {
+  type: 'ad'
+});
 jsonApi.define('creative', {
+  id:'',
   name: '',
   status: '',
   json: '',
@@ -27,13 +56,37 @@ jsonApi.define('creative', {
   type: 'creative'
 });
 
-jsonApi.define('ad', {
+jsonApi.define('insertion', {
   id: '',
-  name: '',
-  brandLogo: ''
+  name:'',
+  status:'',
+  category:'',
+  budget:'',
+  visibility:'',
+  ad: {
+    jsonApi: 'hasOne',
+    type: 'ad'
+  },
+  broadcast: {
+    jsonApi: 'hasOne',
+    type: 'broadcast'
+  },
+  format: {
+    jsonApi: 'hasOne',
+    type: 'format'
+  },
+  rule: {
+    jsonApi: 'hasOne',
+    type: 'rule'
+  },
+  insertionOrderLine: {
+    jsonApi: 'hasOne',
+    type: 'insertionOrderLine'
+  }
 }, {
-  type: 'ad'
+  type:'insertion'
 });
+
 
 authorize(jsonApi);
 
@@ -55,6 +108,8 @@ export function updateCreative(creativeId: number, adId: Number, studioCreative:
     ad: { id: adId }
   });
 }
+
+export function newAd()
 
 
 
