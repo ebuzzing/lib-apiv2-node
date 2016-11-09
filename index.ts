@@ -30,13 +30,9 @@ export function updateCreative(creativeId: number, adId: Number, studioCreative:
     id: creativeId,
     name: studioCreative.name,
     status: 2,
-    json: `{\"Linear\":{\"Extensions\":{\"type\":\"\",\"wrap\":\"https://tag.brainient.com/vast/${studioCreative.id}\",\"script\":[],\"iframe\":[],\"code_html\":[]},\"VideoClicks\":{\"ClickTracking\":[{\"status\":1,\"data\":\"[PROTOCOL]://t.teads.tv/track?action=click&vid=[VID]&cid=[CID]&gid=[GID]&pid=[PID]&[RND]\"}],\"CustomClick\":[]},\"Duration\":0}}`,
+    json: `{\"Linear\":{\"Extensions\":{\"type\":\"\",\"wrap\":\"https://tag.brainient.com/vast/${studioCreative.id}/teads=1\",\"script\":[],\"iframe\":[],\"code_html\":[]},\"VideoClicks\":{\"ClickTracking\":[{\"status\":1,\"data\":\"[PROTOCOL]://t.teads.tv/track?action=click&vid=[VID]&cid=[CID]&gid=[GID]&pid=[PID]&[RND]\"}],\"CustomClick\":[]},\"Duration\":0}}`,
     ad: { id: adId }
   });
-}
-
-function createOrUpdateCreative(creativeId: number, adId: Number, studioCreative: {name: String, id: Number}): Promise<any> {
-  jsonApi.find
 }
 
 export function newAd(ad: any): Promise<any> {
@@ -51,9 +47,6 @@ export function newAd(ad: any): Promise<any> {
     operatorProfile: {id: AUTH.profileId}
   });
 }
-
-
-
 
 // newAd({name: "Andrei Ad"}).then((ad) => ad.id);
 
